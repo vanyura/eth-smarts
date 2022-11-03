@@ -33,7 +33,7 @@ contract SaiOracle is Ownable {
         MaxKey = 1 << Degree;
     }
 
-    function setKeyValue(uint256 key, string memory value) public {
+    function _setKeyValue(uint256 key, string memory value) internal {
         require(key >= MinKey, "setKeyValue::key is smaller than the MinKey");
         require(key < MaxKey, "setKeyValue::key is larger than the MaxKey");
         mapValue[key] = value;
@@ -53,16 +53,23 @@ contract SaiOracle is Ownable {
             //console.logBytes32(bytes32(mapIndex[key]));
         }
     }
+    function setKeyValue(uint256 key, string memory value) external onlyOwner {
+        _setKeyValue(key,value);
+    }
 
     function setValue(string memory value) public {
-        setKeyValue(block.timestamp, value);
+        _setKeyValue(block.timestamp, value);
     }
 
     function getValue(uint256 key) public view returns (string memory) {
         return mapValue[key];
     }
 
-    function findKeyLeft(uint256 key) internal view returns (uint256) {
+    function findValue(uint256 key) public view returns (string memory) {
+        return mapValue[findKeyLeft(key)];
+    }
+
+    function findKeyLeft(uint256 key) public view returns (uint256) {
         (, uint256 nKey) = findKeyLeftIter(key, key >> Degree, Degree);
         return nKey;
     }
@@ -123,9 +130,6 @@ contract SaiOracle is Ownable {
         return (true, keyIndex2);
     }
 
-    function findValue(uint256 key) public view returns (string memory) {
-        return mapValue[findKeyLeft(key)];
-    }
 
 
     function LeftBitToKey(uint256 bits) internal pure returns (uint256) {
@@ -165,7 +169,7 @@ contract SaiOracle is Ownable {
         return block.timestamp;
     }
 
-    function doFindValue(uint256 key) external {
+    function doFindValue(uint256 key) external onlyOwner {
         //string memory Str = 
         findValue(key);
         findValue(key);
