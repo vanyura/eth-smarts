@@ -29,7 +29,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   {
     LogBalance(account.address);
   }
-  await LogBalance("0x0165878A594ca255338adfa4d48449f69242Eb8F");
+    await LogBalance("0x9e5c9e00212799f620093316Abd37Df7B4b03376");
   
 
   
@@ -85,13 +85,13 @@ module.exports = {
       url: "https://data-seed-prebsc-1-s1.binance.org:8545",
       chainId: 97,
       gasPrice: 20000000000,
-      accounts: { mnemonic: "write invite clog length trash hip vault eagle bundle glare immense amount" }
+      accounts: PivateKeyArr,
     },
     mainnetb: {
       url: "https://bsc-dataseed.binance.org/",
       chainId: 56,
       gasPrice: 20000000000,
-      accounts: { mnemonic: "write invite clog length trash hip vault eagle bundle glare immense amount" }
+      accounts: PivateKeyArr,
     }
   },
 
