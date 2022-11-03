@@ -10,15 +10,17 @@ contract SaiOracle is Ownable {
     mapping(uint256 => string) private mapValue;
     mapping(uint256 => uint256) private mapIndex;
 
-    uint256 public Degree = 8;
-    uint256 public MinKey = 1;
-    uint256 public MaxKey = 256;
+    uint256 public Degree;
+    uint256 public MinKey;
+    uint256 public MaxKey;
 
     uint256 constant MAX_KEY=0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
 
-    constructor() {}
+    constructor() {
+        setIntervalDegree(32);
+    }
 
-    function setIntervalDegree(uint256 _Degree) external onlyOwner {
+    function setIntervalDegree(uint256 _Degree) public onlyOwner {
         require(_Degree > 0, "setInterval::Degree is zero");
         //require(_Degree <=32, "setInterval::Max Degree = 32");
         require(

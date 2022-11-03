@@ -38,7 +38,7 @@ async function deploySmartsTest() {
 
   
   
-  await Contract.setIntervalDegree(32);
+  //await Contract.setIntervalDegree(32);
   
   /*
   var Key=await Contract.getTimeStamp();
